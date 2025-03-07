@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import {Link} from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -17,13 +18,17 @@ const Hero = () => {
           
           {/* Call to Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-300 transition flex items-center justify-center">
-              Shop Now
-              <ArrowRight className="ml-2" size={20} />
-            </button>
-            <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-100 transition">
-              Learn More
-            </button>
+            <Link to="/products">
+              <button className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-300 transition flex items-center justify-center">
+                Shop Now
+                <ArrowRight className="ml-2" size={20} />
+              </button>
+            </Link>
+            <Link to="/cards">
+              <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-100 transition">
+                Learn More
+              </button>
+            </Link>
           </div>
 
           {/* Stats */}

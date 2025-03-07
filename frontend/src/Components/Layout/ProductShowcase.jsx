@@ -85,10 +85,7 @@ const ProductShowcase = () => {
                   </div>
                   <span className="text-xl font-bold text-black">DH{product.price}</span>
                 </div>
-                <button className="w-full mt-4 bg-green-600 text-white py-2 rounded-lg hover:bg-greenz-600 transition flex items-center justify-center">
-                  <ShoppingCart className="mr-2" size={20} />
-                  Add to Cart
-                </button>
+                
               </div>
             </div>
           ))}

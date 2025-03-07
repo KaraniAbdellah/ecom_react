@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from "react-router-dom";
 
 function Profile() {
   const [name, setName] = useState('');
@@ -50,9 +51,14 @@ function Profile() {
           />
         </div>
 
-        <button type="submit" className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300">
+        <button type="submit" className="w-full mb-3 bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300">
           Save Changes
         </button>
+        <Link to="/">
+          <button type="submit" className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300">
+            Go To Home
+          </button> 
+        </Link>
       </form>
     </div>
   );

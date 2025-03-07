@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
-import { 
-  ShoppingCart, 
-  User, 
-  Menu, 
-  Search, 
-  X 
-} from 'lucide-react';
+import React, { useState } from "react";
+import { ShoppingCart, User, Menu, Search, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { label: 'Home', href: '#' },
-    { label: 'Products', href: '/products' },
-    { label: 'Features', href: '#Features' },
-    { label: 'About', href: '#About' },
+    { label: "Home", href: "#" },
+    { label: "Products", href: "/products" },
+    { label: "About", href: "#About" },
+    { label: "Features", href: "#Features" },
   ];
-
-
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-50">
@@ -26,52 +19,66 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <a href="#" className="text-2xl font-bold text-gray-800">
-            ArisanatStore
+              ArisanatStore
             </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-4 items-center">
             {navItems.map((item) => (
-              <a 
-                key={item.label} 
-                href={item.href} 
+              <a
+                key={item.label}
+                href={item.href}
                 className="text-gray-600 hover:text-gray-900 transition duration-300"
               >
                 {item.label}
               </a>
             ))}
-            
+
             {/* Search Input */}
-            <div className="relative">
-              <input 
-                type="text" 
-                placeholder="Search products..." 
-                className="pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                placeholder="Enter your email"
+                className="email pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <Search 
-                className="absolute left-2 top-3 text-gray-400" 
-                size={18} 
+              <Search
+                className="absolute left-2 top-3 text-gray-400"
+                size={18}
               />
+              <Link to="/products">
+                <button className="hover:bg-orange-300 ml-2 px-4 py-2 bg-orange-500 text-white rounded-md">
+                  Search
+                </button>
+              </Link>
             </div>
 
             {/* Icons */}
             <div className="flex space-x-4">
-              <button className="hover:bg-gray-100 p-2 rounded-full transition">
-                <User size={24} className="text-gray-600" />
-              </button>
-              <button className="hover:bg-gray-100 p-2 rounded-full transition relative">
-                <ShoppingCart size={24} className="text-gray-600" />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                  3
-                </span>
-              </button>
+              <Link to="/profile">
+                <button className="hover:bg-gray-100 p-2 rounded-full transition">
+                  <User size={24} className="text-gray-600" />
+                </button>
+              </Link>
+              <Link to="/cards">
+                <button className="hover:bg-gray-100 p-2 rounded-full transition relative">
+                  <ShoppingCart size={24} className="text-gray-600" />
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                    3
+                  </span>
+                </button>
+              </Link>
+              <Link to="/login">
+                <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
+                  Login
+                </button>
+              </Link>
             </div>
           </div>
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden">
-            <button 
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-600 hover:text-gray-900"
             >
@@ -98,12 +105,19 @@ const Navbar = () => {
                   <button className="mr-4">
                     <User size={24} className="text-gray-600" />
                   </button>
-                  <button className="relative">
-                    <ShoppingCart size={24} className="text-gray-600" />
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                      3
-                    </span>
-                  </button>
+                  <Link to="/cards">
+                    <button className="relative">
+                      <ShoppingCart size={24} className="text-gray-600" />
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                        3
+                      </span>
+                    </button>
+                  </Link>
+                  <Link to="/login">
+                    <button className="hover:bg-orange-500 ml-5 bg-orange-400 text-white p-2 rounded-full transition relative">
+                      Login
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
