@@ -35,24 +35,6 @@ const Navbar = () => {
               </a>
             ))}
 
-            {/* Search Input */}
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                placeholder="Enter your email"
-                className="email pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <Search
-                className="absolute left-2 top-3 text-gray-400"
-                size={18}
-              />
-              <Link to="/products">
-                <button className="hover:bg-orange-300 ml-2 px-4 py-2 bg-orange-500 text-white rounded-md">
-                  Search
-                </button>
-              </Link>
-            </div>
-
             {/* Icons */}
             <div className="flex space-x-4">
               <Link to="/profile">
@@ -71,6 +53,11 @@ const Navbar = () => {
               <Link to="/login">
                 <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
                   Login
+                </button>
+              </Link>
+              <Link to="/admin">
+                <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
+                  Admin
                 </button>
               </Link>
             </div>
@@ -114,8 +101,13 @@ const Navbar = () => {
                     </button>
                   </Link>
                   <Link to="/login">
-                    <button className="hover:bg-orange-500 ml-5 bg-orange-400 text-white p-2 rounded-full transition relative">
+                    <button className="hover:bg-orange-300 mx-5 bg-orange-500 text-white p-2 rounded-md transition relative">
                       Login
+                    </button>
+                  </Link>
+                  <Link to="/admin">
+                    <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
+                      Admin
                     </button>
                   </Link>
                 </div>
