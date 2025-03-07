@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router';
-import Logo from '../../assets/main.jpg'; // Ensure the path is correct
+import Logo from '../../assets/main.webp'; // Ensure the path is correct
 
 // Validation schema for login
 const loginSchema = Yup.object().shape({

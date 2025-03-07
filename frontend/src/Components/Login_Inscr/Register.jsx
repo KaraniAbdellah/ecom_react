@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Link } from 'react-router';
-import Logo from '../../assets/main.jpg';
+import Logo from '../../assets/main.webp';
 
 // Validation schema for registration
 const registerSchema = Yup.object().shape({
