@@ -39,7 +39,7 @@ function Adminpageadd() {
   }
 
   // Listen to Image
-  useEffect(() => { 
+  useEffect(() => {
     const image_input = document.querySelector(".image");
     image_input.addEventListener("change", async (event) => {
       const file = event.target.files[0];
@@ -90,10 +90,14 @@ function Adminpageadd() {
       resetForm();
     } else {
       // Add new product
-      axios.post("http://127.0.0.1:5000/product/AddProduct", productData).then((res) => {
-        
+      axios.post("http://127.0.0.1:5000/product/addProduct", productData).then((res) => {
+        console.log(res.data);
       });
       
+      // Generate a temporary ID if needed
+      const newProduct = {
+        ...productData,
+      };
       setProducts([...products, newProduct]);
     }
   };
