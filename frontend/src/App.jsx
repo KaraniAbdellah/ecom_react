@@ -12,10 +12,16 @@ import Register from "./Components/Login_Inscr/Register";
 import Profile from "./Components/Profile/Profile";
 
 import { Routes, Route } from "react-router";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import Adminpageadd from "./Components/Admin_Dash/Adminpageadd";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="App">
       <Routes>

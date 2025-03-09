@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Star, ShoppingCart, Heart } from 'lucide-react';
+import { aos } from 'aos';
 
 const ProductShowcase = () => {
   const [products] = useState([
@@ -48,7 +49,7 @@ const ProductShowcase = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <div 
-              key={product.id} 
+              key={product.id} data-aos="flip-left"
               className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 group"
             >
               <div className="relative">

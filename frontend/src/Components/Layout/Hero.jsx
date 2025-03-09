@@ -1,19 +1,20 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import {Link} from "react-router-dom";
+import { aos } from 'aos';
 
 const Hero = () => {
   return (
     <div className="relative bg-gray-50 pt-32 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-center">
         {/* Text Content */}
-        <div className="text-center md:text-left">
+        <div data-aos="fade-left" className="text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
-          L’artisanat marocain <br className="hidden md:block" />
-            l’honneur à Beni Mellal
+          Moroccan craftsmanship <br className="hidden md:block" />
+          honor to Rabat
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-xl">
-          Salon provincial de l’Artisanat à Béni Mellal : valorisation du patrimoine et moteur du développement local
+          Provincial Crafts Fair in Rabat: promotion of heritage and driving force for local development
           </p>
           
           {/* Call to Action Buttons */}
@@ -49,7 +50,7 @@ const Hero = () => {
         </div>
 
         {/* Hero Image */}
-        <div className="hidden md:flex justify-center">
+        <div data-aos="fade-left" className="hidden md:flex justify-center">
           <img 
             src="https://i0.wp.com/rni.ma/wp-content/uploads/2021/11/news_1524158250.jpg?resize=800%2C420&ssl=1" 
             alt="Tech Products Showcase" 

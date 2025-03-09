@@ -40,7 +40,7 @@ const Features = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuresList.map((feature, index) => (
             <div 
-              key={index} 
+              key={index} data-aos="flip-up"
               className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300"
             >
               <div className="bg-orange-500 p-4 rounded-full inline-block mb-4">

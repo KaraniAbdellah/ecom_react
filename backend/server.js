@@ -17,13 +17,13 @@ app.use('/user', UserRoute);
 
 
 // Connect to the product database
-// const ProductDB = mongoose.createConnection(process.env.DB_URL_PRODUCT);
-// ProductDB.once('open', () => {
-//     console.log("✅ DataBase Connect Successfully [PRODUCT]");
-// });
-// ProductDB.on('error', (err) => {
-//     console.log("❌ Error Connect To DataBase [PRODUCT]", err);
-// });
+const ProductDB = mongoose.createConnection(process.env.DB_URL_PRODUCT);
+ProductDB.once('open', () => {
+    console.log("✅ DataBase Connect Successfully [PRODUCT]");
+});
+ProductDB.on('error', (err) => {
+    console.log("❌ Error Connect To DataBase [PRODUCT]", err);
+});
 
 
 // Connect to the user database
