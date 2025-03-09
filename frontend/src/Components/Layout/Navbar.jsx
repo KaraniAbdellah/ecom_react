@@ -1,16 +1,44 @@
-import React, { useState } from "react";
-import { ShoppingCart, User, Menu, Search, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { ShoppingCart, User, Menu, Search, X, Verified } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
   const navItems = [
     { label: "Home", href: "#" },
     { label: "Products", href: "/products" },
     { label: "About", href: "#About" },
     { label: "Features", href: "#Features" },
   ];
+  const handleLogin = (e) => {
+    navigate("/login");
+    if (isLogin) {
+      Cookies.remove("tokenAuth");
+    }
+  };
+  useEffect(() => {
+    // Check If User is Admin
+    if (localStorage.getItem("isAdmin") === "true") {
+      setIsAdmin(true);
+    }
+    // Check if The User Login
+    const token = Cookies.get("tokenAuth");
+    console.log(token);
+    // Verfiy The Expiration of The Token
+    async function VerifyToken() {
+      await axios
+        .post("http://127.0.0.1:5000/user/VerifyToken", { token: token })
+        .then((res) => {
+          setIsLogin(res.data.login);
+        });
+    }
+    VerifyToken();
+  }, []);
 
   return (
     <nav className="bg-white shadow-md fixed w-full z-50">
@@ -50,13 +78,19 @@ const Navbar = () => {
                   </span>
                 </button>
               </Link>
-              <Link to="/login">
-                <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
-                  Login
-                </button>
-              </Link>
+              <button
+                onClick={(e) => handleLogin(e)}
+                className={`hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative
+                      `}
+              >
+                {`${isLogin ? "Log Out" : "Login"}`}
+              </button>
               <Link to="/admin">
-                <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
+                <button
+                  className={`"
+                hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative"
+                ${isAdmin ? "block" : "hidden"}`}
+                >
                   Admin
                 </button>
               </Link>
@@ -88,25 +122,33 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="pt-4 border-t border-gray-200">
-                <div className="flex items-center px-5">
-                  <button className="mr-4">
-                    <User size={24} className="text-gray-600" />
-                  </button>
+                <div className="flex justify-start items-center px-5">
+                  <Link to="/profile">
+                    <button className="hover:bg-gray-100 w-[30px] h-[30px]  rounded-full transition">
+                      <User size={24} className="text-gray-600" />
+                    </button>
+                  </Link>
                   <Link to="/cards">
-                    <button className="relative">
+                    <button className="relative mx-3 w-[30px] h-[30px]">
                       <ShoppingCart size={24} className="text-gray-600" />
                       <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
                         3
                       </span>
                     </button>
                   </Link>
-                  <Link to="/login">
-                    <button className="hover:bg-orange-300 mx-5 bg-orange-500 text-white p-2 rounded-md transition relative">
-                      Login
-                    </button>
-                  </Link>
+                  <button
+                    onClick={(e) => handleLogin(e)}
+                    className={`hover:bg-orange-300 mx-5 bg-orange-500 text-white p-2 rounded-md transition relative
+                        `}
+                  >
+                    {`${isLogin ? "Log Out" : "Login"}`}
+                  </button>
                   <Link to="/admin">
-                    <button className="hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative">
+                    <button
+                      className={`"
+                  hover:bg-orange-300 bg-orange-500 text-white p-2 rounded-md transition relative"
+                  ${isAdmin ? "block" : "hidden"}`}
+                    >
                       Admin
                     </button>
                   </Link>

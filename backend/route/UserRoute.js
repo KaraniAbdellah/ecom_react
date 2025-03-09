@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import 'dotenv/config'
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -20,23 +21,26 @@ UserRoute.post('/AddUser', async function (req, res) {
     try {
         const slateNumber = 10;
         const passwordHashed = await bcrypt.hash(req.body.password, slateNumber);
+        const user_id = uuidv4();
         const user = {
             email: req.body.email,
-            password: passwordHashed
+            password: passwordHashed,
+            name: req.body.name,
+            userId: user_id,
         }
+        console.log(user_id);
         const NewUser = new User(user);
         console.log(NewUser);
         // Generate A Token
         const scretKey =  process.env.SECRET_KEY;
         const token = jwt.sign({
-            email: req.body.email
         }, scretKey, {expiresIn: "100m"});
         console.log(token);
 
         // Save Data To Database
         await NewUser.save();
         // Send Token To Client Side
-        res.status(201).json({ token });
+        res.status(201).json({ token: token, userId: user_id});
         console.log("✅ Success Adding User")
     } catch (error) {
         res.status(500).send({message: "❌ Failed Adding User"});
@@ -130,20 +134,16 @@ UserRoute.get("/GenerateToken", async (req, res) => {
 UserRoute.put("/update/:id", async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        const user = await User.findById(req.params.id);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+        console.log(name);
+        const user = await User.find({userId: req.params.id});
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser && existingUser._id.toString() !== user._id.toString()) {
-            return res.status(400).json({ message: "Email is already in use" });
+        const NewUserData = {
+            email: req.body.email,
+            password: req.body.password,
+            userId: req.params.id,
+            name: req.body.name,
         }
-
-        user.name = name || user.name;
-        user.email = email || user.email;
-        user.password = password || user.password; 
-        await user.save();
+        await User.findByIdAndUpdate(user[0]._id, NewUserData);
 
         res.status(200).json({ message: "User info updated successfully", user });
     } catch (error) {
@@ -152,6 +152,16 @@ UserRoute.put("/update/:id", async (req, res) => {
     }
 });
 
+
+// Get User By UserId
+UserRoute.get("/getUserByUserId/:id", async (req, res) => {
+    try {
+        const user = await User.find({userId: req.params.id});
+        res.status(200).send(user);
+    } catch (error) {
+        res.status(404).send({message: "user not found"});
+    }
+});
 
 
 export default UserRoute;

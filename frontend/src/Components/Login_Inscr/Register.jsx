@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "../../assets/main.webp";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -15,11 +18,31 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
+  const [isExitEmail, setisExitEmail] = useState(true);
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: { name: "", email: "", password: "", confirmPassword: "" },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form Submitted:", values);
+      axios.post("http://127.0.0.1:5000/user/CheckEmail", {email: values.email}).then((res) => {
+        console.log(res.data.isExit);
+        if (res.data.isExit) {
+          setisExitEmail(false);
+        } else {
+          console.log(values);
+          axios
+            .post("http://127.0.0.1:5000/user/AddUser", {
+              email: values.email,
+              password: values.password,
+              name: values.name,
+            })
+            .then((res) => {
+              Cookies.set('tokenAuth', res.data.token);
+              localStorage.setItem("userId", res.data.userId);
+              navigate("/login");
+            });
+        }
+      });
     },
   });
 
@@ -29,9 +52,17 @@ function Register() {
         <div className="w-full h-[550px] hidden md:block">
           <img className="w-full h-full rounded-l-md" src={Logo} alt="Logo" />
         </div>
-        <div className=" flex rounded-r-md items-center justify-center bg-gray-100">
-          <form onSubmit={formik.handleSubmit} className="bg-white px-5 py-4 rounded-lg  w-96 space-y-4">
+        <div
+          className="flex items-center md:rounded-r-md justify-center bg-white broder border-r-orange-600
+          border-2
+          md:border-b-orange-600 md:border-t-orange-600
+          sm:border-orange-600
+          border-orange-600
+          "
+        >
+          <form onSubmit={formik.handleSubmit} className="bg-gray-100 px-5 py-4 rounded-md  w-96 space-y-4">
             <h2 className="text-2xl mb-2 text-center font-semibold">Registration</h2>
+            <div className={`message text-center text-red-700 ${isExitEmail ? "hidden" : "block"}`} >Email Already Exit</div>
             <div className="mb-1">
               <label htmlFor="name" className="block mb-2 text-gray-700">Name</label>
               <input

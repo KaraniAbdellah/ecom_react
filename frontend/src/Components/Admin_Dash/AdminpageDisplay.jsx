@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export default function ProductDisplay({ products, setProducts, onUpdate }) {
   // Update product function
   const handleUpdate = (product) => {
@@ -47,7 +45,7 @@ export default function ProductDisplay({ products, setProducts, onUpdate }) {
             <div className="flex space-x-2">
               <button
                 onClick={() => handleUpdate(prod)}
-                className="p-2 text-blue-800 hover:bg-blue-50 rounded-lg transition"
+                className="p-2 text-blue-800 hover:bg-orange-50 rounded-lg transition"
                 title="Update product"
               >
                 {/* Update icon */}

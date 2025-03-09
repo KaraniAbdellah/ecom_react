@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AdminpageDisplay from "./AdminpageDisplay";
+import axios from "axios";
 
 function Adminpageadd() {
   const [selectedCategory, setSelectedCategory] = useState("jeans");
@@ -38,7 +39,7 @@ function Adminpageadd() {
   }
 
   // Listen to Image
-  useEffect(() => {
+  useEffect(() => { 
     const image_input = document.querySelector(".image");
     image_input.addEventListener("change", async (event) => {
       const file = event.target.files[0];
@@ -66,7 +67,7 @@ function Adminpageadd() {
   };
 
   // Handle form submission (add or update)
-  const handleSubmitProduct = async (e) => {
+  const handleSubmitProduct = async () => {
     const title = titleInputRef.current;
     const description = descriptionInputRef.current;
     const price = priceInputRef.current;
@@ -89,11 +90,10 @@ function Adminpageadd() {
       resetForm();
     } else {
       // Add new product
-      // Generate a temporary ID if needed
-      const newProduct = {
-        ...productData,
-        _id: Date.now().toString() // Temporary ID for demo
-      };
+      axios.post("http://127.0.0.1:5000/product/AddProduct", productData).then((res) => {
+        
+      });
+      
       setProducts([...products, newProduct]);
     }
   };
@@ -228,7 +228,7 @@ function Adminpageadd() {
               onClick={handleSubmitProduct}
               type="submit"
               className={`${
-                isEditing ? "bg-blue-500 hover:bg-blue-700" : "bg-orange-500 hover:bg-orange-700"
+                isEditing ? "bg-orange-500 hover:bg-orange-700" : "bg-orange-500 hover:bg-orange-700"
               } text-white py-2 px-4 text-xl rounded-lg font-semibold transition`}
             >
               {isEditing ? "Update Product" : "Add Product"}

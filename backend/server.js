@@ -17,24 +17,28 @@ app.use('/user', UserRoute);
 
 
 // Connect to the product database
-const ProductDB = mongoose.createConnection(process.env.DB_URL_PRODUCT);
-ProductDB.once('open', () => {
-    console.log("✅ DataBase Connect Successfully [PRODUCT]");
-});
-ProductDB.on('error', (err) => {
-    console.log("❌ Error Connect To DataBase [PRODUCT]", err);
-});
+// const ProductDB = mongoose.createConnection(process.env.DB_URL_PRODUCT);
+// ProductDB.once('open', () => {
+//     console.log("✅ DataBase Connect Successfully [PRODUCT]");
+// });
+// ProductDB.on('error', (err) => {
+//     console.log("❌ Error Connect To DataBase [PRODUCT]", err);
+// });
 
 
 // Connect to the user database
-const userDb = mongoose.createConnection(process.env.DB_URL_USER);
-userDb.once('open', () => {
-    console.log("✅ Connect Successfully to Database [USER]");
-});
-userDb.on('error', (err) => {
-    console.log("❌ Connect to Database Failed [USER]", err);
-});
+// const userDb = mongoose.createConnection(process.env.DB_URL_USER);
+// userDb.once('open', () => {
+//     console.log("✅ Connect Successfully to Database [USER]");
+// });
+// userDb.on('error', (err) => {
+//     console.log("❌ Connect to Database Failed [USER]", err);
+// });
 
+
+mongoose.connect(process.env.DB_URL_PRODUCT).then(() => {
+    console.log("✅ Connect Successfully to Database [PRODUCT]");
+})
 
 app.listen(process.env.PORT, function (err) {
     if (err) console.log(err);
