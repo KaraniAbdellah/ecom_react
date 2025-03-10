@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import AdminpageDisplay from "./AdminpageDisplay";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import { 
+  ArrowLeft, 
+} from 'lucide-react';
 
 function Adminpageadd() {
   const [selectedCategory, setSelectedCategory] = useState("jeans");
@@ -167,6 +171,13 @@ function Adminpageadd() {
     <div className="container mx-auto px-6 py-12 relative">
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                  <Link to ="/">
+                  <button
+                    className="text-gray-600 hover:bg-gray-200 rounded-full p-2 hover:text-gray-900 transition"
+                  >
+                    <ArrowLeft size={24} />
+                  </button>
+                  </Link>
         <h1 className="text-3xl font-bold text-gray-700 text-center mb-6">
           {isEditing ? "Update Product" : "Add Product"}
         </h1>
