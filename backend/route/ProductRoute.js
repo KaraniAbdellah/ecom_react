@@ -83,6 +83,19 @@ ProductRoute.put("/updateProduct/:id", async(req, res) => {
 });
 
 
+// Get Product By Id
+ProductRoute.get("/GetById/:productId", async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.productId);
+        if (product) {
+            res.status(200).send(product);
+        } else {
+            res.status(404).send({message: "Can Not Find This Product"});
+        }
+    } catch (error) {
+        res.status(500).send({message: "Error"});
+    }
+});
 
 
 
