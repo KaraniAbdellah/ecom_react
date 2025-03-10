@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import {
   ArrowLeft,
   Search,
-  Filter,
-  Star,
   ShoppingCart,
   Heart,
-  Terminal,
 } from "lucide-react";
 
 const ProductsPage = ({ onBackToHome }) => {
@@ -20,7 +15,6 @@ const ProductsPage = ({ onBackToHome }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [IsActiveStar, setIsActiveStar] = useState(false);
   const categories = [
     "All",
     "Tagine",
@@ -33,6 +27,7 @@ const ProductsPage = ({ onBackToHome }) => {
 
   const HandleStars = (e) => {
     const TargetEle = e.target.parentElement.parentElement;
+    console.log(TargetEle);
     // Get The ELement That Exit After TargetEle
     const IdTargetEle = TargetEle.getAttribute("id");
     if (IdTargetEle) {
@@ -53,33 +48,43 @@ const ProductsPage = ({ onBackToHome }) => {
     setSelectedCategory(category);
 
     // Get All Products Category
-    console.log(category);
     if (category == "All") {
       axios.get(`http://127.0.0.1:5000/product/GetAllProduct`).then((res) => {
-        console.log(res.data);
         setFilteredProducts(res.data);
+        setProducts(res.data);
       });
     } else {
       axios
-        .get(`http://127.0.0.1:5000/product/GetAllProduct/${category}`)
-        .then((res) => {
-          console.log(res.data);
+      .get(`http://127.0.0.1:5000/product/GetAllProduct/${category}`)
+      .then((res) => {
           setFilteredProducts(res.data);
+          setProducts(res.data);
         });
     }
   };
 
   const HandleSearchProduct = (e) => {
-    setSearchTerm(e.target.value);
-    console.log(searchTerm);
-    const NewFiltredData = filteredProducts.filter((product) => product.title.includes(searchTerm));
-    console.log(NewFiltredData);
-    setFilteredProducts(NewFiltredData);
+    const searchValue = e.target.value.toLowerCase();
+    setSearchTerm(searchValue);
+    
+    const NewFilteredData = products.filter((product) => 
+      product.title.toLowerCase().includes(searchValue)
+    );
+  
+    setFilteredProducts(NewFilteredData);
   };
+  
+  const handleLike = (e) => {
+    e.target.classList.add("bg-orange-400");
+    e.target.nextElementSibling.classList.remove("bg-orange-400");
+  }
+  const handleDisLike = (e) => {
+    e.target.previousElementSibling.classList.remove("bg-orange-400");
+    e.target.classList.add("bg-orange-400");
+  }
 
   useEffect(() => {
     axios.get("http://127.0.0.1:5000/product/GetAllProduct").then((res) => {
-      console.log(res.data);
       setProducts(res.data);
       setFilteredProducts(res.data);
     });
@@ -112,12 +117,6 @@ const ProductsPage = ({ onBackToHome }) => {
               className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
             />
           </div>
-          <button
-            onClick={() => HandleSearchProduct()}
-            className="text-gray-600 hover:text-gray-900 transition"
-          >
-            <Filter size={24} />
-          </button>
         </div>
 
         {/* Category Filters */}
@@ -166,56 +165,13 @@ const ProductsPage = ({ onBackToHome }) => {
                 </h3>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <p
-                      id="1"
-                      onClick={(e) => HandleStars(e)}
-                      className="text-gray-400"
-                    >
-                      <FontAwesomeIcon
-                        className={`cursor-pointer mr-1`}
-                        icon={faStar}
-                      />
+                  <p onClick={(e) => handleLike(e)} className="like cursor-pointer mr-3 bg-gray-200 rounded-full w-[30px] h-[30px] flex justify-center items-center">
+                      👍
                     </p>
-                    <p
-                      id="2"
-                      onClick={(e) => HandleStars(e)}
-                      className="text-gray-400"
-                    >
-                      <FontAwesomeIcon
-                        className={`cursor-pointer mr-1`}
-                        icon={faStar}
-                      />
+                    <p onClick={(e) => handleDisLike(e)} className="dislike cursor-pointer mr-3 bg-gray-200 rounded-full w-[30px] h-[30px] flex justify-center items-center">
+                      👎
                     </p>
-                    <p
-                      id="3"
-                      onClick={(e) => HandleStars(e)}
-                      className="text-gray-400"
-                    >
-                      <FontAwesomeIcon
-                        className={`cursor-pointer mr-1`}
-                        icon={faStar}
-                      />
-                    </p>
-                    <p
-                      id="4"
-                      onClick={(e) => HandleStars(e)}
-                      className="text-gray-400"
-                    >
-                      <FontAwesomeIcon
-                        className={`cursor-pointer mr-1`}
-                        icon={faStar}
-                      />
-                    </p>
-                    <p
-                      id="5"
-                      onClick={(e) => HandleStars(e)}
-                      className="text-gray-400"
-                    >
-                      <FontAwesomeIcon
-                        className={`cursor-pointer mr-1`}
-                        icon={faStar}
-                      />
-                    </p>
+                    
                   </div>
                   <span className="text-xl font-bold text-orange-600">
                     ${product.price}
@@ -225,6 +181,13 @@ const ProductsPage = ({ onBackToHome }) => {
                   <ShoppingCart className="mr-2" size={20} />
                   Add to Cart
                 </button>
+                <Link to={`/details/${product._id}`}>
+                  <button className="w-full mt-2 bg-gray-50 text-orange-600 font-semibold py-2 rounded-lg
+                  hover:bg-orange-600 hover:text-white transition flex items-center
+                  justify-center">
+                    See Details
+                  </button>
+                </Link>
               </div>
             </div>
           ))}

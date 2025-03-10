@@ -17,6 +17,7 @@ import "aos/dist/aos.css";
 
 import Adminpageadd from "./Components/Admin_Dash/Adminpageadd";
 import { useEffect } from "react";
+import ProductDetails from "./Components/Layout/ProductDetails";
 
 function App() {
   useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/profile" element={<Profile></Profile>}></Route>
         <Route path="/cards" element={<Card></Card>}></Route>
         <Route path="/admin" element={<Adminpageadd></Adminpageadd>}></Route>
+        <Route path="/details/:productId" element={<ProductDetails></ProductDetails>}></Route>
       </Routes>
     </div>
   );
