@@ -11,7 +11,6 @@ ProductRoute.get("/GetAllProduct", async (req, res)  => {
     try {
         const products = await Product.find();
         res.status(201).json(products);
-        console.log(products);
         console.log("✅ Success Get Products");
     } catch (error) {
         res.status(500).send({message: "❌ Failed Getting Products"});

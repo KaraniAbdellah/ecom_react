@@ -36,8 +36,8 @@ app.use('/user', UserRoute);
 // });
 
 
-mongoose.connect(process.env.DB_URL_PRODUCT).then(() => {
-    console.log("✅ Connect Successfully to Database [PRODUCT]");
+mongoose.connect(process.env.DB_URL).then(() => {
+    console.log("✅ Connect Successfully to Database [Ecommerce]");
 })
 
 app.listen(process.env.PORT, function (err) {

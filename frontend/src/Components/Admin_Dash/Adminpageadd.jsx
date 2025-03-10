@@ -8,6 +8,7 @@ function Adminpageadd() {
   const [Base64Data, setBase64Data] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editProductId, setEditProductId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const categories = [
     { id: "Tagine", label: "Tagine" },
@@ -23,6 +24,7 @@ function Adminpageadd() {
   const descriptionInputRef = React.useRef(null);
   const priceInputRef = React.useRef(null);
   const quantityInputRef = React.useRef(null);
+  const imageInputRef = React.useRef(null);
 
   // Convert Image To Base64
   function convertToBase64(file) {
@@ -38,10 +40,28 @@ function Adminpageadd() {
     });
   }
 
-  // Listen to Image
+  // Fetch all products function
+  const fetchProducts = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/product/GetAllProduct");
+      setProducts(response.data);
+      console.log("Products loaded:", response.data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Load products on component mount
   useEffect(() => {
-    const image_input = document.querySelector(".image");
-    image_input.addEventListener("change", async (event) => {
+    fetchProducts();
+  }, []);
+
+  // Listen to Image changes
+  useEffect(() => {
+    const handleImageChange = async (event) => {
       const file = event.target.files[0];
       if (file) {
         try {
@@ -51,7 +71,15 @@ function Adminpageadd() {
           console.error("Error converting to Base64:", error);
         }
       }
-    });
+    };
+
+    const imageInput = imageInputRef.current;
+    if (imageInput) {
+      imageInput.addEventListener("change", handleImageChange);
+      return () => {
+        imageInput.removeEventListener("change", handleImageChange);
+      };
+    }
   }, []);
 
   // Fill form with product data when editing
@@ -68,37 +96,47 @@ function Adminpageadd() {
 
   // Handle form submission (add or update)
   const handleSubmitProduct = async () => {
-    const title = titleInputRef.current;
-    const description = descriptionInputRef.current;
-    const price = priceInputRef.current;
-    const quantity = quantityInputRef.current;
+    const title = titleInputRef.current.value;
+    const description = descriptionInputRef.current.value;
+    const price = priceInputRef.current.value;
+    const quantity = quantityInputRef.current.value;
+
+    if (!title || !description || !price || !quantity) {
+      alert("Please fill all required fields");
+      return;
+    }
 
     const productData = {
-      title: title.value,
-      description: description.value,
-      price: price.value,
-      quantity: quantity.value,
+      title,
+      description,
+      price,
+      quantity,
       image: Base64Data,
       category: selectedCategory,
     };
 
-    if (isEditing) {
-      // Update existing product
-      setProducts(products.map(prod => 
-        prod._id === editProductId ? { ...productData, _id: editProductId } : prod
-      ));
-      resetForm();
-    } else {
-      // Add new product
-      axios.post("http://127.0.0.1:5000/product/addProduct", productData).then((res) => {
-        console.log(res.data);
-      });
+    try {
+      if (isEditing) {
+        // Update existing product
+        await axios.put(`http://127.0.0.1:5000/product/updateProduct/${editProductId}`, productData);
+        console.log("Product updated successfully");
+        
+        // Refresh the products list
+        fetchProducts();
+      } else {
+        // Add new product
+        const response = await axios.post("http://127.0.0.1:5000/product/addProduct", productData);
+        console.log("Product added successfully:", response.data);
+        
+        // Refresh the products list
+        fetchProducts();
+      }
       
-      // Generate a temporary ID if needed
-      const newProduct = {
-        ...productData,
-      };
-      setProducts([...products, newProduct]);
+      // Reset the form after successful submission
+      resetForm();
+    } catch (error) {
+      console.error("Error saving product:", error);
+      alert("Error saving product. Please try again.");
     }
   };
 
@@ -108,6 +146,7 @@ function Adminpageadd() {
     if (descriptionInputRef.current) descriptionInputRef.current.value = "";
     if (priceInputRef.current) priceInputRef.current.value = "";
     if (quantityInputRef.current) quantityInputRef.current.value = "";
+    if (imageInputRef.current) imageInputRef.current.value = ""; // Reset file input
     setSelectedCategory("jeans");
     setBase64Data("");
     setIsEditing(false);
@@ -194,6 +233,7 @@ function Adminpageadd() {
             <input
               type="file"
               name="image"
+              ref={imageInputRef}
               className="image w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               accept="image/*"
             />
@@ -251,11 +291,17 @@ function Adminpageadd() {
         </div>
       </div>
 
-      <AdminpageDisplay 
-        products={products} 
-        setProducts={setProducts} 
-        onUpdate={handleUpdateRequest}
-      />
+      {isLoading ? (
+        <div className="flex justify-center mt-8">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+        </div>
+      ) : (
+        <AdminpageDisplay 
+          products={products} 
+          setProducts={setProducts} 
+          onUpdate={handleUpdateRequest}
+        />
+      )}
     </div>
   );
 }

@@ -1,14 +1,34 @@
+import axios from "axios";
+
 export default function ProductDisplay({ products, setProducts, onUpdate }) {
   // Update product function
   const handleUpdate = (product) => {
     console.log("Updating product:", product);
     // Call the parent component's update handler
     onUpdate(product);
+    
+    // Fixed URL - Need to add "/" before the ID and remove "deleteProduct" from the path
+    axios.put(`http://127.0.0.1:5000/product/updateProduct/${product._id}`, product)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+      });
   };
 
   // Delete product function
   const handleDelete = (productId) => {
     setProducts(products.filter(prod => prod._id !== productId));
+    
+    // Fixed URL - Need to add "/" before the ID
+    axios.delete(`http://127.0.0.1:5000/product/deleteProduct/${productId}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
+      });
   };
 
   return (
