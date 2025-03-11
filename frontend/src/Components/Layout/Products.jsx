@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Aos from "aos";
 
 import {
   ArrowLeft,
   Search,
   ShoppingCart,
   Heart,
+  ArrowUpToLine,
+  ArrowUpToLineIcon,
+  ArrowRight,
 } from "lucide-react";
 
 const ProductsPage = ({ onBackToHome }) => {
@@ -88,6 +92,7 @@ const ProductsPage = ({ onBackToHome }) => {
       setProducts(res.data);
       setFilteredProducts(res.data);
     });
+    Aos.init();
   }, []);
 
   return (
@@ -98,7 +103,7 @@ const ProductsPage = ({ onBackToHome }) => {
           <Link to="/">
             <button
               onClick={onBackToHome}
-              className="text-gray-600 hover:text-gray-900 transition"
+              className="text-gray-600 hover:text-orange-500 hover:bg-gray-200 p-2 rounded-full transition-all"
             >
               <ArrowLeft size={24} />
             </button>
@@ -143,7 +148,7 @@ const ProductsPage = ({ onBackToHome }) => {
       <main className="max-w-7xl mx-auto px-4 pt-36 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
-            <div
+            <div data-aos="fade-up"
               key={product._id}
               className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 group"
             >
@@ -154,9 +159,11 @@ const ProductsPage = ({ onBackToHome }) => {
                   className="w-full h-64 object-cover group-hover:opacity-80 transition"
                 />
                 <div className="absolute top-4 right-4 flex space-x-2">
+                <Link to={`/details/${product._id}`}>
                   <button className="bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition">
-                    <Heart size={20} className="text-orange-600" />
+                    <ArrowRight size={20} className="text-orange-600" />
                   </button>
+                </Link>
                 </div>
               </div>
               <div className="p-4">
@@ -171,16 +178,17 @@ const ProductsPage = ({ onBackToHome }) => {
                     <p onClick={(e) => handleDisLike(e)} className="dislike cursor-pointer mr-3 bg-gray-200 rounded-full w-[30px] h-[30px] flex justify-center items-center">
                       👎
                     </p>
-                    
                   </div>
                   <span className="text-xl font-bold text-orange-600">
                     ${product.price}
                   </span>
                 </div>
-                <button className="w-full mt-4 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition flex items-center justify-center">
-                  <ShoppingCart className="mr-2" size={20} />
-                  Add to Cart
-                </button>
+                <Link to='/cards'>
+                  <button className="w-full mt-4 bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 transition flex items-center justify-center">
+                    <ShoppingCart className="mr-2" size={20} />
+                    Add to Cart
+                  </button>
+                </Link>
                 <Link to={`/details/${product._id}`}>
                   <button className="w-full mt-2 bg-gray-50 text-orange-600 font-semibold py-2 rounded-lg
                   hover:bg-orange-600 hover:text-white transition flex items-center

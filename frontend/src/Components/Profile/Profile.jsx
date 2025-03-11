@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 
 function Profile() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [userId, setUserId] = useState("");
   const [message, setMessage] = useState(""); // Add state for message
 
@@ -14,8 +15,8 @@ function Profile() {
     if (name && email && password) {
       try {
         await axios.put(`http://127.0.0.1:5000/user/update/${userId}`, {
-          name: name, 
-          email: email, 
+          name: name,
+          email: email,
           password: password,
         });
         setMessage("Profile updated successfully!"); // Success message
@@ -41,7 +42,9 @@ function Profile() {
 
   const fetchUserData = async (id) => {
     try {
-      const res = await axios.get(`http://127.0.0.1:5000/user/getUserByUserId/${id}`);
+      const res = await axios.get(
+        `http://127.0.0.1:5000/user/getUserByUserId/${id}`
+      );
       if (res.data && res.data.length > 0) {
         const userInfo = res.data[0];
         setName(userInfo.name);
@@ -58,18 +61,32 @@ function Profile() {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-lg mt-24 shadow-lg">
-      <h2 className="text-2xl font-bold text-center text-orange-600 mb-6">Edit Profile</h2>
-      
+      <Link to="/">
+        <button
+          className="text-gray-600 hover:text-orange-500 hover:bg-gray-200 p-2 rounded-full transition-all"
+        >
+          <ArrowLeft size={24} />
+        </button>
+      </Link>
+      <h2 className="text-2xl font-bold text-center text-orange-600 mb-6">
+        Edit Profile
+      </h2>
+
       {/* Display message if exists */}
       {message && (
         <div className="mb-4 p-3 bg-orange-100 text-red-800 rounded-md">
           {message}
         </div>
       )}
-      
+
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">Name</label>
+          <label
+            className="block text-gray-700 font-semibold mb-2"
+            htmlFor="name"
+          >
+            Name
+          </label>
           <input
             type="text"
             id="name"
@@ -80,9 +97,14 @@ function Profile() {
             required
           />
         </div>
-        
+
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2" htmlFor="email">Email</label>
+          <label
+            className="block text-gray-700 font-semibold mb-2"
+            htmlFor="email"
+          >
+            Email
+          </label>
           <input
             type="email"
             id="email"
@@ -95,7 +117,12 @@ function Profile() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2" htmlFor="password">Password</label>
+          <label
+            className="block text-gray-700 font-semibold mb-2"
+            htmlFor="password"
+          >
+            Password
+          </label>
           <input
             type="password"
             id="password"
@@ -107,13 +134,19 @@ function Profile() {
           />
         </div>
 
-        <button type="submit" className="w-full mb-3 bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300">
+        <button
+          type="submit"
+          className="w-full mb-3 bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300"
+        >
           Save Changes
         </button>
         <Link to="/">
-          <button type="button" className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300">
+          <button
+            type="button"
+            className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300"
+          >
             Go To Home
-          </button> 
+          </button>
         </Link>
       </form>
     </div>

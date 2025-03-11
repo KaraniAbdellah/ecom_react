@@ -72,7 +72,7 @@ UserRoute.post("/CheckUser", async (req, res) => {
             const isPasswordValid = await isThisPassword(req.body.password, user.password);
             if (user.email === req.body.email && isPasswordValid) {
                 console.log("User exists with correct password");
-                return res.status(200).json({isExit: true});
+                return res.status(200).json({isExit: true, userId: user.userId});
             }
         }
         console.log("❌ No user found with provided email and password");

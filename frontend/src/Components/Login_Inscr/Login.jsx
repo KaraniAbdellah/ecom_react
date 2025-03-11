@@ -6,11 +6,9 @@ import Logo from "../../assets/main.webp"; // Ensure the path is correct
 import axios from "axios";
 import Cookies from "js-cookie";
 
-
-
 // Validation schema
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isExit, setIsExit] = useState(true);
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -31,12 +29,22 @@ function Login() {
           password: values.password,
         })
         .then((res) => {
+          console.log(res.data);
           if (res.data.isExit) {
+            localStorage.setItem("userId", res.data.userId);
             navigate("/");
           } else {
             setIsExit(false);
           }
         });
+
+      // Give A User A Token
+      if (Cookies.get("tokenAuth")) {
+        console.log("Hello");
+      }
+      axios.get("http://127.0.0.1:5000/user/GenerateToken").then((res) => {
+        Cookies.set("tokenAuth", res.data.token);
+      });
     },
   });
 
@@ -60,7 +68,13 @@ function Login() {
             className="bg-gray-100 p-8 md:rounded-lg rounded-sm w-96"
           >
             <h2 className="text-2xl mb-3 text-center">Login</h2>
-            <div className={`message text-center text-red-700 ${isExit ? "hidden" : "block"}`} >Email or Password Inccorect</div>
+            <div
+              className={`message text-center text-red-700 ${
+                isExit ? "hidden" : "block"
+              }`}
+            >
+              Email or Password Inccorect
+            </div>
             <div className="mb-4">
               <label htmlFor="email" className="block mb-2">
                 Email

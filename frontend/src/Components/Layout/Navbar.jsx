@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { ShoppingCart, User, Menu, Search, X, Verified } from "lucide-react";
+import {
+  ShoppingCart,
+  User,
+  Menu,
+  Search,
+  X,
+  Verified,
+  UndoIcon,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -15,10 +23,13 @@ const Navbar = () => {
     { label: "About", href: "#About" },
     { label: "Features", href: "#Features" },
   ];
-  const handleLogin = (e) => {
+  const handleLogin = () => {
     navigate("/login");
     if (isLogin) {
       Cookies.remove("tokenAuth");
+      localStorage.setItem("userId", undefined);
+      setIsAdmin(false);
+      localStorage.setItem("isAdmin", "false");
     }
   };
   useEffect(() => {
@@ -26,14 +37,17 @@ const Navbar = () => {
     if (localStorage.getItem("isAdmin") === "true") {
       setIsAdmin(true);
     }
+    if (localStorage.getItem("userId") != undefined) {
+      setIsLogin(true);
+    }
     // Check if The User Login
     const token = Cookies.get("tokenAuth");
-    console.log(token);
     // Verfiy The Expiration of The Token
     async function VerifyToken() {
       await axios
         .post("http://127.0.0.1:5000/user/VerifyToken", { token: token })
         .then((res) => {
+          console.log(res.data);
           setIsLogin(res.data.login);
         });
     }
@@ -64,7 +78,7 @@ const Navbar = () => {
             ))}
 
             {/* Icons */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-5">
               <Link to="/profile">
                 <button className="hover:bg-gray-100 p-2 rounded-full transition">
                   <User size={24} className="text-gray-600" />
@@ -73,7 +87,7 @@ const Navbar = () => {
               <Link to="/cards">
                 <button className="hover:bg-gray-100 p-2 rounded-full transition relative">
                   <ShoppingCart size={24} className="text-gray-600" />
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2 py-1">
                     3
                   </span>
                 </button>

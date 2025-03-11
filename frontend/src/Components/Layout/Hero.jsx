@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import {Link} from "react-router-dom";
-import { aos } from 'aos';
 
 const Hero = () => {
   return (
@@ -18,7 +17,7 @@ const Hero = () => {
           </p>
           
           {/* Call to Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <div className="flex flex-col items-center sm:flex-row gap-4 justify-center md:justify-start">
             <Link to="/products">
               <button className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-300 transition flex items-center justify-center">
                 Shop Now
