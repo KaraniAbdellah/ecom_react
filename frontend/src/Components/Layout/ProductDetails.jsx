@@ -23,30 +23,36 @@ const ProductDetails = () => {
         );
         const data = await response.json();
         setProduct(data);
-        setLoading(false);
         setCategory(data.category);
+        setLoading(false);
       } catch (err) {
-        setError("Failed to load product data" + err);
+        setError("Failed to load product data: " + err);
         setLoading(false);
       }
     }
-
+  
     fetchData();
-
-    async function GetSameProducts() {
-      await axios
-        .get(`http://127.0.0.1:5000/product/GetAllProduct/${category}`)
-        .then((res) => {
-          console.log(res.data);
-          const SameProductFiltred = res.data.filter(
-            (product) => product._id != productId
-          );
-          setSameProducts(SameProductFiltred);
-        });
-    }
-
-    GetSameProducts();
   }, [productId]);
+
+  useEffect(() => {
+    if (!category) return;
+    
+    async function GetSameProducts() {
+      try {
+        const res = await axios.get(
+          `http://127.0.0.1:5000/product/GetAllProduct/${category}`
+        );
+        const SameProductFiltred = res.data.filter(
+          (product) => product._id !== productId
+        );
+        setSameProducts(SameProductFiltred);
+      } catch (err) {
+        console.error("Error fetching same products:", err);
+      }
+    }
+  
+    GetSameProducts();
+  }, [category]); 
 
   const NavigateToAnotherProduct = (e, item) => {
     console.log(item);
@@ -177,9 +183,9 @@ const ProductDetails = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {/* Placeholder for similar products */}
-            {SameProducts.map((item) => (
+            {SameProducts.map((item, index) => (
               <div
-                key={item.id}
+                key={index}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="h-48 bg-gray-200 relative text-end overflow-hidden">
