@@ -56,29 +56,19 @@ This project is an e-commerce website with different spaces for regular users an
 
 ## Technology Stack
 
-![Tech Stack](/api/placeholder/800/400)
+<div align="center">
+  
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML) 
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Frameworks/React)
+[![AOS](https://img.shields.io/badge/AOS-FF3B8A?style=for-the-badge&logo=aos&logoColor=white)](https://michalsnik.github.io/aos/)
+[![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-### Frontend
-- **React JS**: For building the user interface
-- **Tailwind CSS**: For styling and responsive design
-- **Yup**: For frontend data validation
+</div>
 
-### Backend
-- **Node.js & Express.js**: For creating the server and API
-- **Mongoose**: For database operations
-- **Validator.js**: For backend data validation
-
-### Database
-- **MongoDB**: For storing product and user data
-
-### Authentication
-- **JWT (JSON Web Tokens)**: For secure authentication
-- **OAuth**: For login with Google, GitHub, or Facebook
-
-### Tools
-- **Postman**: For testing APIs
-- **GitHub**: For version control
-- **Draw.io**: For creating UML diagrams
 
 ## Project Workflow
 
@@ -97,17 +87,14 @@ This project is an e-commerce website with different spaces for regular users an
    - View user information
    - Monitor shop performance
 
-## Technical Requirements
 
-- Secure JWT/OAuth authentication with role management
-- Complete data validation (Yup for frontend, Validator.js for backend)
-- Fully functional shop with dynamic product display
-- Detailed product pages with description, similar items, and reviews
-- User profile management
-- Integration with existing stock and user APIs
-- Responsive and user-friendly design
-- Effective team collaboration
 
 ## Installation and Setup
 
-1. Clone the repository:
+**Clone the repository**
+
+``` bash
+
+   git clone https://github.com/KaraniAbdellah/ecom_react.git
+
+```
