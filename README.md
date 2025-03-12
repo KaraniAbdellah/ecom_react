@@ -89,7 +89,7 @@ This project is an e-commerce website with different spaces for regular users an
 
 
 
-## Installation and Setup
+## Contribution
 
 **Clone the repository**
 
