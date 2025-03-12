@@ -4,11 +4,25 @@
 
 <img src="imgs/first_page.png"/>
 
-### Main Page
+### Products Page
 
-<img src="imgs/first_page.png"/>
+<img src="imgs/products.png"/>
 
+### Login Page
 
+<img src="imgs/login.png"/>
+
+### Registration Page
+
+<img src="imgs/registration.png"/>
+
+### Admin Dashboard Page
+
+<img src="imgs/admin_dash.png"/>
+
+### Admin Dashboard Page
+
+<img src="imgs/admin_dash2.png"/>
 
 ## Project Overview
 

@@ -60,7 +60,7 @@ function Profile() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg mt-24 shadow-lg">
+    <div className="max-w-md mx-auto p-6 rounded-lg mt-24 shadow-lg bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
       <Link to="/">
         <button
           className="text-gray-600 hover:text-orange-500 hover:bg-gray-200 p-2 rounded-full transition-all"
