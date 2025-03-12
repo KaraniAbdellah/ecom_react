@@ -68,7 +68,7 @@ const ProductDetails = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-orange-500"></div>
       </div>
     );
@@ -76,7 +76,7 @@ const ProductDetails = () => {
 
   if (error) {
     return (
-      <div className="flex flex-col justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center h-screen bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
         <p className="text-red-500 text-xl">{error}</p>
         <button
         // onClick={() => GoPrevProduct()}
@@ -91,10 +91,10 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="bg-gray-100 min-h-screen py-8 px-4 md:px-8">
+    <div className="min-h-screen py-8 px-4 md:px-8 bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
       <div className="max-w-6xl mx-auto">
         <button
-          className="flex hover:bg-gray-200 p-2 rounded-full items-center gap-2 text-gray-600 hover:text-orange-500 mb-6 transition-colors"
+          className="flex hover:bg-gray-200 p-2 bg-gray-100 rounded-full items-center gap-2 text-gray-600 hover:text-orange-500 mb-6 transition-colors"
           onClick={() => window.history.back()}
         >
           <ArrowLeft size={24} />

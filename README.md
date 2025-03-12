@@ -8,6 +8,10 @@
 
 <img src="imgs/products.png"/>
 
+### Products Details
+
+<img src="imgs/Product_Details.png"/>
+
 ### Login Page
 
 <img src="imgs/login.png"/>
