@@ -173,7 +173,7 @@ function Adminpageadd() {
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
                   <Link to ="/">
                   <button
-                    className="text-gray-600 hover:bg-gray-200 rounded-full p-2 hover:text-gray-900 transition"
+                    className="text-gray-600 hover:text-orange-500 hover:bg-gray-200 rounded-full p-2 transition"
                   >
                     <ArrowLeft size={24} />
                   </button>
