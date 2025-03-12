@@ -20,6 +20,10 @@
 
 <img src="imgs/registration.png"/>
 
+### Profile Page
+
+<img src="imgs/profile.png"/>
+
 ### Admin Dashboard Page
 
 <img src="imgs/admin_dash.png"/>
