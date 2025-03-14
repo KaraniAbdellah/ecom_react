@@ -22,12 +22,14 @@ function Register() {
     initialValues: { name: "", email: "", password: "", confirmPassword: "" },
     validationSchema,
     onSubmit: (values) => {
+      // Check Of The Email Already Exit Or No
       axios.post("http://127.0.0.1:5000/user/CheckEmail", {email: values.email}).then((res) => {
         console.log(res.data.isExit);
         if (res.data.isExit) {
           setisExitEmail(false);
         } else {
           console.log(values);
+          // Add User to Database
           axios
             .post("http://127.0.0.1:5000/user/AddUser", {
               email: values.email,
@@ -56,10 +58,10 @@ function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-screen">
+    <div className="flex justify-center mt-32 items-center w-full h-screen">
       <form 
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-3 bg-white p-8 w-full max-w-md rounded-2xl font-sans shadow-md"
+        className="flex mb-20 flex-col gap-3 bg-white p-8 w-full max-w-md rounded-2xl font-sans shadow-md"
       >
         <h2 className="text-2xl text-center font-semibold">Registration</h2>
         

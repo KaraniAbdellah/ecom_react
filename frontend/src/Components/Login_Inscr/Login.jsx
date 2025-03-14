@@ -12,6 +12,7 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   
+  // Validation With YUP
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
@@ -19,11 +20,13 @@ const LoginForm = () => {
       .required("Password is required"),
   });
 
+  // Use Formik Hook
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema,
     onSubmit: (values) => {
       localStorage.setItem("isAdmin", isAdmin);
+      // Check If Email Or Password Exit or Not
       axios
         .post("http://127.0.0.1:5000/user/CheckUser", {
           email: values.email,
@@ -54,7 +57,7 @@ const LoginForm = () => {
   };
   
   return (
-    <div className="flex justify-center items-center w[100%] h-screen">
+    <div className="flex justify-center mt-10 items-center w[100%] h-screen">
       <form 
         onSubmit={formik.handleSubmit}
         className="flex flex-col gap-3 bg-white p-8 w-full max-w-md rounded-2xl font-sans shadow-md"

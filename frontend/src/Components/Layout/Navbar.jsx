@@ -3,10 +3,7 @@ import {
   ShoppingCart,
   User,
   Menu,
-  Search,
   X,
-  Verified,
-  UndoIcon,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -27,7 +24,7 @@ const Navbar = () => {
     navigate("/login");
     if (isLogin) {
       Cookies.remove("tokenAuth");
-      localStorage.setItem("userId", undefined);
+      localStorage.removeItem("userId");
       setIsAdmin(false);
       localStorage.setItem("isAdmin", "false");
     }
@@ -54,6 +51,8 @@ const Navbar = () => {
     VerifyToken();
   }, []);
 
+
+
   return (
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +70,7 @@ const Navbar = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-gray-600 hover:text-gray-900 transition duration-300"
+                className="text-gray-600 cursor-pointer hover:text-gray-900 transition duration-300"
               >
                 {item.label}
               </a>
