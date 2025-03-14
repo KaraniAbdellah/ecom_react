@@ -60,95 +60,97 @@ function Profile() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 rounded-lg mt-24 bg-white shadow">
-      <Link to="/">
-        <button
-          className="text-gray-600 hover:text-orange-500 hover:bg-gray-200 p-2 rounded-full transition-all"
-        >
-          <ArrowLeft size={24} />
-        </button>
-      </Link>
-      <h2 className="text-2xl font-bold text-center text-orange-600 mb-6">
-        Edit Profile
-      </h2>
-
-      {/* Display message if exists */}
-      {message && (
-        <div className="mb-4 p-3 bg-orange-100 text-red-800 rounded-md">
-          {message}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 font-semibold mb-2"
-            htmlFor="name"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter your name"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 font-semibold mb-2"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter your email"
-            required
-          />
-        </div>
-
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 font-semibold mb-2"
-            htmlFor="password"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full mb-3 bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300"
-        >
-          Save Changes
-        </button>
+    <div className="w-full h-screen flex justify-center items-center">
+      <div className="max-w-md p-6 rounded-lg bg-white shadow w-[500px]">
         <Link to="/">
           <button
-            type="button"
-            className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300"
+            className="text-gray-600 hover:text-orange-500 hover:bg-gray-200 p-2 rounded-full transition-all"
           >
-            Go To Home
+            <ArrowLeft size={24} />
           </button>
         </Link>
-      </form>
+        <h2 className="text-2xl font-bold text-center text-orange-600 mb-6">
+          Edit Profile
+        </h2>
+
+        {/* Display message if exists */}
+        {message && (
+          <div className="mb-4 p-3 bg-orange-100 text-red-800 rounded-md">
+            {message}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="name"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 font-semibold mb-2"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full mb-3 bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300"
+          >
+            Save Changes
+          </button>
+          <Link to="/">
+            <button
+              type="button"
+              className="w-full bg-orange-600 text-white p-3 rounded-md hover:bg-orange-700 transition duration-300"
+            >
+              Go To Home
+            </button>
+          </Link>
+        </form>
+      </div>
     </div>
   );
 }

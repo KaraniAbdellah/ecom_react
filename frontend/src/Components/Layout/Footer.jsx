@@ -22,8 +22,9 @@ const Footer = () => {
     e.target.style.backgroundColor = "green";
 
     setTimeout(() => {
-      e.target.textContent = "Subscribe";
+      e.target.textContent = "Send";
       e.target.style.backgroundColor = "rgb(249 115 22)";
+      email.value = "";
     }, 1000);
   };
 
@@ -123,21 +124,21 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Stay Updated</h4>
+            <h4 className="text-lg font-semibold mb-4">Feedback</h4>
             <p className="text-gray-400 mb-4">
-              Subscribe to our newsletter for the latest tech updates.
+            Share your feedback to help us improve!
             </p>
             <div className="flex">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Feedback..."
                 className="w-full px-4 py-2 rounded-l-lg text-gray-900 email"
               />
               <button
                 onClick={ (e) => handleSubmit(e)}
                 className="bg-orange-600 hover:bg-orange-300 text-white px-4 py-2 rounded-r-lg transition"
               >
-                Subscribe
+                Send
               </button>
             </div>
           </div>
