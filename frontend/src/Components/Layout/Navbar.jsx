@@ -87,7 +87,7 @@ const Navbar = () => {
                 <button className="hover:bg-gray-100 p-2 rounded-full transition relative">
                   <ShoppingCart size={24} className="text-gray-600" />
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                    3
+                    0
                   </span>
                 </button>
               </Link>
@@ -145,7 +145,7 @@ const Navbar = () => {
                     <button className="relative mx-3 w-[30px] h-[30px]">
                       <ShoppingCart size={24} className="text-gray-600" />
                       <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                        3
+                        0
                       </span>
                     </button>
                   </Link>
