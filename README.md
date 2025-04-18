@@ -1,5 +1,5 @@
 # E-commerce Platform
-
+#### youtube video: https://youtu.be/tcFmin4DfYc?si=ulbcrn5409rwNIWC
 ### Main Page
 
 <img src="imgs/first_page.png"/>
