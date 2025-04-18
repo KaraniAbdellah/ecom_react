@@ -60,7 +60,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center">
             <a href="#" className="text-2xl font-bold text-gray-800">
-              Crafting
+              ArisanatStore
             </a>
           </div>
 

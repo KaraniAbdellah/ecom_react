@@ -49,7 +49,7 @@ const Hero = () => {
         </div>
 
         {/* Hero Image */}
-        <div data-aos="fade-left" className="hidden md:flex justify-center">
+        <div data-aos="fade-right" className="hidden md:flex justify-center">
           <img 
             src="https://i0.wp.com/rni.ma/wp-content/uploads/2021/11/news_1524158250.jpg?resize=800%2C420&ssl=1" 
             alt="Tech Products Showcase" 
